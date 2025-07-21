@@ -14,6 +14,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ✅ Root route for health check
+@app.get("/")
+def read_root():
+    return {"message": "API is live and working fine ✅"}
+
 # Model aur encoder load karna
 try:
     model = joblib.load("xgb_model.pkl")
@@ -54,7 +59,7 @@ def predict(data: InputData):
 
     try:
         # Input features ko numpy array mein convert karo
-        input_features = np.array([[
+        input_features = np.array([[  
             data.experience_level,
             data.salary_in_usd,
             data.company_size,
